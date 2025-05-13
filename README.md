@@ -34,15 +34,30 @@ This project is a fun, creative teaser built using modern web development tools 
 
 ---
 
-## 📂 Tech Stack
+## ⚙️ Tech Stack
 
-- HTML5
-- Tailwind CSS
-- GSAP (GreenSock Animation Platform)
-- SVG Graphics
-- JavaScript
+- **React.js** – Frontend library for UI development  
+- **Tailwind CSS** – Utility-first CSS framework  
+- **GSAP (GreenSock)** – For stunning animations  
+- **SVG** – Custom graphics and effects  
+- **Vite** – Lightning-fast development build tool  
+- **Deployed on Vercel** – Easy CI/CD and hosting
 
 ---
+
+## 🛠️ Installation & Setup
+
+```bash
+# Clone the repository
+git clone https://github.com/shaikhsiddique/gta6-landing-page.git
+cd gta6-landing-page
+
+# Install dependencies
+npm install
+
+# Start the development server
+npm run dev
+```
 
 ## 🛠️ Contributing
 
