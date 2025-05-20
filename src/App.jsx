@@ -1,13 +1,21 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import React, { useState, useRef, useEffect } from "react";
+import Loading_Screen from "./components/Loading-Screen";
 
 function App() {
   const [showContent, setShowContent] = useState(false);
+  const [showLoading, setShowLoading] = useState(true);
   const mainRef = useRef(null);
+
+  const handleLoadingComplete = () => {
+    setShowLoading(false);
+  };
 
   // Initial animation
   useGSAP(() => {
+    if (showLoading) return; 
+
     const tl = gsap.timeline();
 
     tl.to(".vi-mask-group", {
@@ -30,7 +38,7 @@ function App() {
         }
       },
     });
-  });
+  }, [showLoading]); // Add showLoading as dependency
 
   // Mousemove handler after content is shown
   useEffect(() => {
@@ -102,36 +110,40 @@ function App() {
   }, [showContent]);
 
   return (
-    <>
-      <div className="svg flex items-center justify-center fixed top-0 left-0 z-[100] w-full h-screen overflow-hidden bg-[#000]">
-        <svg viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
-          <defs>
-            <mask id="viMask">
-              <rect width="100%" height="100%" fill="black" />
-              <g className="vi-mask-group">
-                <text
-                  x="50%"
-                  y="50%"
-                  fontSize="250"
-                  textAnchor="middle"
-                  fill="white"
-                  dominantBaseline="middle"
-                  fontFamily="Arial Black"
-                >
-                  VI
-                </text>
-              </g>
-            </mask>
-          </defs>
-          <image
-            href="./bg.png"
-            width="100%"
-            height="100%"
-            preserveAspectRatio="xMidYMid slice"
-            mask="url(#viMask)"
-          />
-        </svg>
-      </div>
+    <div className="bg-black">
+      {showLoading ? (
+        <Loading_Screen onComplete={handleLoadingComplete} />
+      ) : (
+        <div className="svg flex items-center justify-center fixed top-0 left-0 z-[100] w-full h-screen overflow-hidden bg-[#000]">
+          <svg viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
+            <defs>
+              <mask id="viMask">
+                <rect width="100%" height="100%" fill="black" />
+                <g className="vi-mask-group">
+                  <text
+                    x="50%"
+                    y="50%"
+                    fontSize="250"
+                    textAnchor="middle"
+                    fill="white"
+                    dominantBaseline="middle"
+                    fontFamily="Arial Black"
+                  >
+                    VI
+                  </text>
+                </g>
+              </mask>
+            </defs>
+            <image
+              href="./bg.png"
+              width="100%"
+              height="100%"
+              preserveAspectRatio="xMidYMid slice"
+              mask="url(#viMask)"
+            />
+          </svg>
+        </div>
+      )}
 
       {showContent && (
         <div ref={mainRef} className="main w-full rotate-[-10deg] scale-[1.7]">
@@ -231,7 +243,7 @@ function App() {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }
 
